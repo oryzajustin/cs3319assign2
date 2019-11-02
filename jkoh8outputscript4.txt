@@ -1,0 +1,47 @@
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1046 (3D000) at line 4: No database selected
+ERROR 1046 (3D000) at line 8: No database selected
+ERROR 1046 (3D000) at line 11: No database selected
+ERROR 1046 (3D000) at line 12: No database selected
+ERROR 1046 (3D000) at line 13: No database selected
+ERROR 1046 (3D000) at line 16: No database selected
+ERROR 1046 (3D000) at line 17: No database selected
+ERROR 1046 (3D000) at line 18: No database selected
+ERROR 1046 (3D000) at line 21: No database selected
+--------------
+DELETE FROM Doctor WHERE licenseDate < "1965-01-01"
+--------------
+
+--------------
+CREATE VIEW patientsanddoctors AS SELECT p.fName AS "Patient first name", p.lName AS "Patient last name", d.fName AS "Doctor first name", d.lName AS "Doctor last name" FROM Doctor d, Has h, Patient p, Hospital o WHERE d.licenseNum = h.licenseNum AND p.ohipNum = h.ohipNum AND h.licenseNum = o.headDocLicenseNum AND o.headDocStartDate > "1995-12-31"
+--------------
+
+--------------
+SELECT * FROM patientsanddoctors
+--------------
+
+--------------
+SELECT * FROM Doctor
+--------------
+
+--------------
+SELECT * FROM Has
+--------------
+
+--------------
+DELETE FROM Doctor WHERE lname = "Clooney"
+--------------
+
+--------------
+SELECT * FROM Doctor
+--------------
+
+--------------
+SELECT * FROM Has
+--------------
+
+--------------
+DELETE FROM Doctor WHERE speciality = "Surgeon"
+--------------
+
+Bye

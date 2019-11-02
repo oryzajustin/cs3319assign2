@@ -1,0 +1,28 @@
+-- Part 3
+
+-- Query 1
+SELECT lname FROM Patient;
+-- Query 2
+SELECT DISTINCT lname FROM Patient;
+-- Query 3
+SELECT * FROM Doctor ORDER BY lname ASC;
+-- Query 4
+SELECT * FROM Hospital WHERE numBeds > 1500;
+-- Query 5
+SELECT lname, fname FROM Doctor WHERE hospitalCode = (SELECT hospitalCode FROM Hospital WHERE name = 'St. Joseph');
+-- Query 6
+SELECT fname, lname FROM Patient WHERE lname LIKE "G%";
+-- Query 7*
+-- SELECT fname, lname FROM Patient INNER JOIN Has ON Doctor.lname = "Clooney";
+-- Query 8*
+-- SELECT name, city, lname FROM Hospital;
+-- Query 9
+SELECT SUM(numBeds) AS "Total Number of Beds" FROM Hospital;
+-- Query 10
+SELECT p.fName AS "Patient fname", d.fName AS "Doctor fname" FROM Doctor d, Has h, Patient p, Hospital o WHERE d.licenseNum = h.licenseNum AND p.ohipNum = h.ohipNum AND h.licenseNum = o.headDocLicenseNum;
+-- Query 11*
+
+-- Query 12*
+
+-- Query 13
+SELECT fName, lName FROM Doctor WHERE licenseNum IN (SELECT licenseNum FROM Has GROUP BY licenseNum HAVING COUNT(ohipNum) > 1);

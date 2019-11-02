@@ -1,10 +1,18 @@
+-- Part 2
 SHOW DATABASES;
 USE jkoh8assign2db;
+
+-- Read in the data from the file
 SELECT * FROM Patient;
 LOAD DATA LOCAL INFILE 'loaddatafall2019.txt' INTO TABLE Patient FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n';
 SELECT * FROM Patient;
+
+-- Insert myself
+SELECT * FROM Patient;
 INSERT INTO Patient(ohipNum, fName,lName) VALUES (123456789, "Justin", "Koh");
 SELECT * FROM Patient;
+
+-- Insert Doctor Data
 SELECT * FROM Doctor
 INSERT INTO Doctor(licenseNum, fName, lName, speciality, licenseDate) VALUES ("RD34", "Bernie", "Kavorikian", "Urologist", "1980-09-09");
 INSERT INTO Doctor(licenseNum, fName, lName, speciality, licenseDate) VALUES ("GD56", "Joey", "Shabado", "Podiatrist", "1960-06-24");
@@ -14,11 +22,15 @@ INSERT INTO Doctor(licenseNum, fName, lName, speciality, licenseDate) VALUES ("J
 INSERT INTO Doctor(licenseNum, fName, lName, speciality, licenseDate) VALUES ("SE66", "Colleen", "Aziz", "Surgeon", "1989-08-24");
 INSERT INTO Doctor(licenseNum, fName, lName, speciality, licenseDate) VALUES ("SS32", "Derek", "Shepherd", "Neurosurgeon", "2005-03-27");
 SELECT * FROM Doctor;
+
+-- Insert Hospital Data
 SELECT * FROM Hospital;
 INSERT INTO Hospital(hospitalCode, name, city, province, numBeds) VALUES("BBC", "St. Joseph", "London", "On", 1000);
 INSERT INTO Hospital(hospitalCode, name, city, province, numBeds) VALUES("ABC", "Victoria", "London", "On", 1600);
 INSERT INTO Hospital(hospitalCode, name, city, province, numBeds) VALUES("DDE", "Victoria", "Victoria", "BC", 1200);
 SELECT * FROM Hospital;
+
+-- Insert data into the Relationship table
 SELECT * FROM Has;
 INSERT INTO Has(ohipNum, licenseNum) VALUES (110112113, "GD56");
 INSERT INTO Has(ohipNum, licenseNum) VALUES (444555666, "HT45");
@@ -33,14 +45,31 @@ INSERT INTO Has(ohipNum, licenseNum) VALUES (667766777, "GD56");
 INSERT INTO Has(ohipNum, licenseNum) VALUES (111222111, "YT67");
 INSERT INTO Has(ohipNum, licenseNum) VALUES (667766777, "SS32");
 SELECT * FROM Has;
+
+-- Update the Doctor table
 SELECT * FROM Doctor;
 UPDATE Doctor SET hospitalCode = "BBC" WHERE lname IN( "Kavorikian", "Shabado", "Webster");
 UPDATE Doctor SET hospitalCode = "DDE" WHERE lname IN("Clooney", "Spock");
 UPDATE Doctor SET hospitalCode = "ABC" WHERE lname IN("Aziz", "Shepherd");
 SELECT * FROM Doctor;
+
+-- Update the Hospital table
+SELECT * FROM Hospital;
+UPDATE Hospital SET headDocLicenseNum = "GD56" WHERE hospitalCode = "BBC";
+UPDATE Hospital SET headDocLicenseNum = "YT67" WHERE hospitalCode = "DDE";
+UPDATE Hospital SET headDocLicenseNum = "SE66" WHERE hospitalCode = "ABC";
+UPDATE Hospital SET headDocStartDate = "1999-09-10" WHERE headDocLicenseNum = "GD56";
+UPDATE Hospital SET headDocStartDate = "1997-12-07" WHERE headDocLicenseNum = "YT67";
+UPDATE Hospital SET headDocStartDate = "1994-12-05" WHERE headDocLicenseNum = "SE66";
+SELECT * FROM Hospital;
+
+-- Change the last name
 SELECT * FROM Patient;
 UPDATE Patient SET lname = "Brown" WHERE ohipNum = 111222111;
 SELECT * FROM Patient;
+
+-- Change the doctors
 SELECT * FROM Has;
 UPDATE Has SET licenseNum = "HT45" WHERE licenseNum = "YT67";
 SELECT * FROM Has;
+

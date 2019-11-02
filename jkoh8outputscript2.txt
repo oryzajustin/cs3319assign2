@@ -18,25 +18,14 @@ SHOW DATABASES
 SELECT * FROM Patient
 --------------
 
-+-----------+---------+--------+
-| ohipNum   | fName   | lName  |
-+-----------+---------+--------+
-| 110112113 | Bill    | Gellar |
-| 111222111 | Suzi    | Brown  |
-| 111222333 | Jon     | Green  |
-| 123456789 | Justin  | Koh    |
-| 333444555 | Colleen | Gellar |
-| 444555666 | Sean    | Gellar |
-| 667766777 | Scotty  | Bing   |
-+-----------+---------+--------+
-7 rows in set (0.00 sec)
+Empty set (0.00 sec)
 
 --------------
 LOAD DATA LOCAL INFILE 'loaddatafall2019.txt' INTO TABLE Patient FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n'
 --------------
 
-Query OK, 0 rows affected (0.00 sec)
-Records: 6  Deleted: 0  Skipped: 6  Warnings: 0
+Query OK, 6 rows affected (0.01 sec)
+Records: 6  Deleted: 0  Skipped: 0  Warnings: 0
 
 --------------
 SELECT * FROM Patient
@@ -46,20 +35,36 @@ SELECT * FROM Patient
 | ohipNum   | fName   | lName  |
 +-----------+---------+--------+
 | 110112113 | Bill    | Gellar |
-| 111222111 | Suzi    | Brown  |
+| 111222111 | Suzi    | Bing   |
 | 111222333 | Jon     | Green  |
-| 123456789 | Justin  | Koh    |
 | 333444555 | Colleen | Gellar |
 | 444555666 | Sean    | Gellar |
 | 667766777 | Scotty  | Bing   |
 +-----------+---------+--------+
-7 rows in set (0.00 sec)
+6 rows in set (0.00 sec)
 
-ERROR 1062 (23000) at line 6: Duplicate entry '123456789' for key 'PRIMARY'
+--------------
+SELECT * FROM Patient
+--------------
+
++-----------+---------+--------+
+| ohipNum   | fName   | lName  |
++-----------+---------+--------+
+| 110112113 | Bill    | Gellar |
+| 111222111 | Suzi    | Bing   |
+| 111222333 | Jon     | Green  |
+| 333444555 | Colleen | Gellar |
+| 444555666 | Sean    | Gellar |
+| 667766777 | Scotty  | Bing   |
++-----------+---------+--------+
+6 rows in set (0.00 sec)
+
 --------------
 INSERT INTO Patient(ohipNum, fName,lName) VALUES (123456789, "Justin", "Koh")
 --------------
 
+Query OK, 1 row affected (0.01 sec)
+
 --------------
 SELECT * FROM Patient
 --------------
@@ -68,7 +73,7 @@ SELECT * FROM Patient
 | ohipNum   | fName   | lName  |
 +-----------+---------+--------+
 | 110112113 | Bill    | Gellar |
-| 111222111 | Suzi    | Brown  |
+| 111222111 | Suzi    | Bing   |
 | 111222333 | Jon     | Green  |
 | 123456789 | Justin  | Koh    |
 | 333444555 | Colleen | Gellar |
@@ -77,13 +82,7 @@ SELECT * FROM Patient
 +-----------+---------+--------+
 7 rows in set (0.00 sec)
 
-ERROR 1064 (42000) at line 8: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INSERT INTO Doctor(licenseNum, fName, lName, speciality, licenseDate) VALUES ("R' at line 2
-ERROR 1062 (23000) at line 10: Duplicate entry 'GD56' for key 'PRIMARY'
-ERROR 1062 (23000) at line 11: Duplicate entry 'HT45' for key 'PRIMARY'
-ERROR 1062 (23000) at line 12: Duplicate entry 'YT67' for key 'PRIMARY'
-ERROR 1062 (23000) at line 13: Duplicate entry 'JK78' for key 'PRIMARY'
-ERROR 1062 (23000) at line 14: Duplicate entry 'SE66' for key 'PRIMARY'
-ERROR 1062 (23000) at line 15: Duplicate entry 'SS32' for key 'PRIMARY'
+ERROR 1064 (42000) at line 16: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'INSERT INTO Doctor(licenseNum, fName, lName, speciality, licenseDate) VALUES ("R' at line 2
 --------------
 SELECT * FROM Doctor
 INSERT INTO Doctor(licenseNum, fName, lName, speciality, licenseDate) VALUES ("RD34", "Bernie", "Kavorikian", "Urologist", "1980-09-09")
@@ -93,25 +92,37 @@ INSERT INTO Doctor(licenseNum, fName, lName, speciality, licenseDate) VALUES ("R
 INSERT INTO Doctor(licenseNum, fName, lName, speciality, licenseDate) VALUES ("GD56", "Joey", "Shabado", "Podiatrist", "1960-06-24")
 --------------
 
+Query OK, 1 row affected (0.01 sec)
+
 --------------
 INSERT INTO Doctor(licenseNum, fName, lName, speciality, licenseDate) VALUES ("HT45", "Ross", "Clooney", "Surgeon", "1987-06-20")
 --------------
+
+Query OK, 1 row affected (0.01 sec)
 
 --------------
 INSERT INTO Doctor(licenseNum, fName, lName, speciality, licenseDate) VALUES ("YT67", "Ben", "Spock", "Pediatrician", "1955-02-20")
 --------------
 
+Query OK, 1 row affected (0.02 sec)
+
 --------------
 INSERT INTO Doctor(licenseNum, fName, lName, speciality, licenseDate) VALUES ("JK78", "Mandy", "Webster", "Surgeon", "1990-08-08")
 --------------
+
+Query OK, 1 row affected (0.01 sec)
 
 --------------
 INSERT INTO Doctor(licenseNum, fName, lName, speciality, licenseDate) VALUES ("SE66", "Colleen", "Aziz", "Surgeon", "1989-08-24")
 --------------
 
+Query OK, 1 row affected (0.00 sec)
+
 --------------
 INSERT INTO Doctor(licenseNum, fName, lName, speciality, licenseDate) VALUES ("SS32", "Derek", "Shepherd", "Neurosurgeon", "2005-03-27")
 --------------
+
+Query OK, 1 row affected (0.02 sec)
 
 --------------
 SELECT * FROM Doctor
@@ -120,12 +131,12 @@ SELECT * FROM Doctor
 +------------+--------------+---------+----------+--------------+-------------+
 | licenseNum | hospitalCode | fName   | lName    | speciality   | licenseDate |
 +------------+--------------+---------+----------+--------------+-------------+
-| GD56       | BBC          | Joey    | Shabado  | Podiatrist   | 1960-06-24  |
-| HT45       | DDE          | Ross    | Clooney  | Surgeon      | 1987-06-20  |
-| JK78       | BBC          | Mandy   | Webster  | Surgeon      | 1990-08-08  |
-| SE66       | ABC          | Colleen | Aziz     | Surgeon      | 1989-08-24  |
-| SS32       | ABC          | Derek   | Shepherd | Neurosurgeon | 2005-03-27  |
-| YT67       | DDE          | Ben     | Spock    | Pediatrician | 1955-02-20  |
+| GD56       | NULL         | Joey    | Shabado  | Podiatrist   | 1960-06-24  |
+| HT45       | NULL         | Ross    | Clooney  | Surgeon      | 1987-06-20  |
+| JK78       | NULL         | Mandy   | Webster  | Surgeon      | 1990-08-08  |
+| SE66       | NULL         | Colleen | Aziz     | Surgeon      | 1989-08-24  |
+| SS32       | NULL         | Derek   | Shepherd | Neurosurgeon | 2005-03-27  |
+| YT67       | NULL         | Ben     | Spock    | Pediatrician | 1955-02-20  |
 +------------+--------------+---------+----------+--------------+-------------+
 6 rows in set (0.00 sec)
 
@@ -133,118 +144,116 @@ SELECT * FROM Doctor
 SELECT * FROM Hospital
 --------------
 
-+--------------+-------------------+------------+----------+----------+---------+
-| hospitalCode | headDocLicenseNum | name       | city     | province | numBeds |
-+--------------+-------------------+------------+----------+----------+---------+
-| ABC          | NULL              | Victoria   | London   | On       |    1600 |
-| BBC          | NULL              | St. Joseph | London   | On       |    1000 |
-| DDE          | NULL              | Victoria   | Victoria | BC       |    1200 |
-+--------------+-------------------+------------+----------+----------+---------+
-3 rows in set (0.00 sec)
+Empty set (0.01 sec)
 
-ERROR 1062 (23000) at line 18: Duplicate entry 'BBC' for key 'PRIMARY'
-ERROR 1062 (23000) at line 19: Duplicate entry 'ABC' for key 'PRIMARY'
-ERROR 1062 (23000) at line 20: Duplicate entry 'DDE' for key 'PRIMARY'
 --------------
 INSERT INTO Hospital(hospitalCode, name, city, province, numBeds) VALUES("BBC", "St. Joseph", "London", "On", 1000)
 --------------
+
+Query OK, 1 row affected (0.00 sec)
 
 --------------
 INSERT INTO Hospital(hospitalCode, name, city, province, numBeds) VALUES("ABC", "Victoria", "London", "On", 1600)
 --------------
 
+Query OK, 1 row affected (0.17 sec)
+
 --------------
 INSERT INTO Hospital(hospitalCode, name, city, province, numBeds) VALUES("DDE", "Victoria", "Victoria", "BC", 1200)
 --------------
+
+Query OK, 1 row affected (0.01 sec)
 
 --------------
 SELECT * FROM Hospital
 --------------
 
-+--------------+-------------------+------------+----------+----------+---------+
-| hospitalCode | headDocLicenseNum | name       | city     | province | numBeds |
-+--------------+-------------------+------------+----------+----------+---------+
-| ABC          | NULL              | Victoria   | London   | On       |    1600 |
-| BBC          | NULL              | St. Joseph | London   | On       |    1000 |
-| DDE          | NULL              | Victoria   | Victoria | BC       |    1200 |
-+--------------+-------------------+------------+----------+----------+---------+
++--------------+------------------+-------------------+------------+----------+----------+---------+
+| hospitalCode | headDocStartDate | headDocLicenseNum | name       | city     | province | numBeds |
++--------------+------------------+-------------------+------------+----------+----------+---------+
+| ABC          | NULL             | NULL              | Victoria   | London   | On       |    1600 |
+| BBC          | NULL             | NULL              | St. Joseph | London   | On       |    1000 |
+| DDE          | NULL             | NULL              | Victoria   | Victoria | BC       |    1200 |
++--------------+------------------+-------------------+------------+----------+----------+---------+
 3 rows in set (0.00 sec)
 
 --------------
 SELECT * FROM Has
 --------------
 
-+-----------+------------+
-| ohipNum   | licenseNum |
-+-----------+------------+
-| 110112113 | GD56       |
-| 111222333 | SE66       |
-| 111222333 | YT67       |
-| 444555666 | HT45       |
-| 444555666 | JK78       |
-| 667766777 | SS32       |
-+-----------+------------+
-6 rows in set (0.00 sec)
+Empty set (0.00 sec)
 
-ERROR 1062 (23000) at line 23: Duplicate entry 'GD56' for key 'PRIMARY'
-ERROR 1062 (23000) at line 24: Duplicate entry 'HT45' for key 'PRIMARY'
-ERROR 1062 (23000) at line 25: Duplicate entry 'JK78' for key 'PRIMARY'
-ERROR 1062 (23000) at line 26: Duplicate entry 'SE66' for key 'PRIMARY'
-ERROR 1062 (23000) at line 27: Duplicate entry 'YT67' for key 'PRIMARY'
-ERROR 1062 (23000) at line 28: Duplicate entry 'JK78' for key 'PRIMARY'
-ERROR 1062 (23000) at line 29: Duplicate entry 'GD56' for key 'PRIMARY'
-ERROR 1062 (23000) at line 30: Duplicate entry 'YT67' for key 'PRIMARY'
-ERROR 1062 (23000) at line 31: Duplicate entry 'JK78' for key 'PRIMARY'
-ERROR 1062 (23000) at line 32: Duplicate entry 'GD56' for key 'PRIMARY'
-ERROR 1062 (23000) at line 33: Duplicate entry 'YT67' for key 'PRIMARY'
-ERROR 1062 (23000) at line 34: Duplicate entry 'SS32' for key 'PRIMARY'
 --------------
 INSERT INTO Has(ohipNum, licenseNum) VALUES (110112113, "GD56")
 --------------
+
+Query OK, 1 row affected (0.01 sec)
 
 --------------
 INSERT INTO Has(ohipNum, licenseNum) VALUES (444555666, "HT45")
 --------------
 
+Query OK, 1 row affected (0.01 sec)
+
 --------------
 INSERT INTO Has(ohipNum, licenseNum) VALUES (444555666, "JK78")
 --------------
+
+Query OK, 1 row affected (0.02 sec)
 
 --------------
 INSERT INTO Has(ohipNum, licenseNum) VALUES (111222333, "SE66")
 --------------
 
+Query OK, 1 row affected (0.00 sec)
+
 --------------
 INSERT INTO Has(ohipNum, licenseNum) VALUES (111222333, "YT67")
 --------------
+
+Query OK, 1 row affected (0.01 sec)
 
 --------------
 INSERT INTO Has(ohipNum, licenseNum) VALUES (111222333, "JK78")
 --------------
 
+Query OK, 1 row affected (0.01 sec)
+
 --------------
 INSERT INTO Has(ohipNum, licenseNum) VALUES (333444555, "GD56")
 --------------
+
+Query OK, 1 row affected (0.00 sec)
 
 --------------
 INSERT INTO Has(ohipNum, licenseNum) VALUES (667766777, "YT67")
 --------------
 
+Query OK, 1 row affected (0.01 sec)
+
 --------------
 INSERT INTO Has(ohipNum, licenseNum) VALUES (667766777, "JK78")
 --------------
+
+Query OK, 1 row affected (0.02 sec)
 
 --------------
 INSERT INTO Has(ohipNum, licenseNum) VALUES (667766777, "GD56")
 --------------
 
+Query OK, 1 row affected (0.01 sec)
+
 --------------
 INSERT INTO Has(ohipNum, licenseNum) VALUES (111222111, "YT67")
 --------------
 
+Query OK, 1 row affected (0.00 sec)
+
 --------------
 INSERT INTO Has(ohipNum, licenseNum) VALUES (667766777, "SS32")
 --------------
+
+Query OK, 1 row affected (0.01 sec)
 
 --------------
 SELECT * FROM Has
@@ -254,13 +263,19 @@ SELECT * FROM Has
 | ohipNum   | licenseNum |
 +-----------+------------+
 | 110112113 | GD56       |
+| 111222111 | YT67       |
+| 111222333 | JK78       |
 | 111222333 | SE66       |
 | 111222333 | YT67       |
+| 333444555 | GD56       |
 | 444555666 | HT45       |
 | 444555666 | JK78       |
+| 667766777 | GD56       |
+| 667766777 | JK78       |
 | 667766777 | SS32       |
+| 667766777 | YT67       |
 +-----------+------------+
-6 rows in set (0.00 sec)
+12 rows in set (0.00 sec)
 
 --------------
 SELECT * FROM Doctor
@@ -269,12 +284,12 @@ SELECT * FROM Doctor
 +------------+--------------+---------+----------+--------------+-------------+
 | licenseNum | hospitalCode | fName   | lName    | speciality   | licenseDate |
 +------------+--------------+---------+----------+--------------+-------------+
-| GD56       | BBC          | Joey    | Shabado  | Podiatrist   | 1960-06-24  |
-| HT45       | DDE          | Ross    | Clooney  | Surgeon      | 1987-06-20  |
-| JK78       | BBC          | Mandy   | Webster  | Surgeon      | 1990-08-08  |
-| SE66       | ABC          | Colleen | Aziz     | Surgeon      | 1989-08-24  |
-| SS32       | ABC          | Derek   | Shepherd | Neurosurgeon | 2005-03-27  |
-| YT67       | DDE          | Ben     | Spock    | Pediatrician | 1955-02-20  |
+| GD56       | NULL         | Joey    | Shabado  | Podiatrist   | 1960-06-24  |
+| HT45       | NULL         | Ross    | Clooney  | Surgeon      | 1987-06-20  |
+| JK78       | NULL         | Mandy   | Webster  | Surgeon      | 1990-08-08  |
+| SE66       | NULL         | Colleen | Aziz     | Surgeon      | 1989-08-24  |
+| SS32       | NULL         | Derek   | Shepherd | Neurosurgeon | 2005-03-27  |
+| YT67       | NULL         | Ben     | Spock    | Pediatrician | 1955-02-20  |
 +------------+--------------+---------+----------+--------------+-------------+
 6 rows in set (0.00 sec)
 
@@ -282,22 +297,22 @@ SELECT * FROM Doctor
 UPDATE Doctor SET hospitalCode = "BBC" WHERE lname IN( "Kavorikian", "Shabado", "Webster")
 --------------
 
-Query OK, 0 rows affected (0.01 sec)
-Rows matched: 2  Changed: 0  Warnings: 0
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
 
 --------------
 UPDATE Doctor SET hospitalCode = "DDE" WHERE lname IN("Clooney", "Spock")
 --------------
 
-Query OK, 0 rows affected (0.01 sec)
-Rows matched: 2  Changed: 0  Warnings: 0
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
 
 --------------
 UPDATE Doctor SET hospitalCode = "ABC" WHERE lname IN("Aziz", "Shepherd")
 --------------
 
-Query OK, 0 rows affected (0.00 sec)
-Rows matched: 2  Changed: 0  Warnings: 0
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
 
 --------------
 SELECT * FROM Doctor
@@ -314,6 +329,74 @@ SELECT * FROM Doctor
 | YT67       | DDE          | Ben     | Spock    | Pediatrician | 1955-02-20  |
 +------------+--------------+---------+----------+--------------+-------------+
 6 rows in set (0.00 sec)
+
+--------------
+SELECT * FROM Hospital
+--------------
+
++--------------+------------------+-------------------+------------+----------+----------+---------+
+| hospitalCode | headDocStartDate | headDocLicenseNum | name       | city     | province | numBeds |
++--------------+------------------+-------------------+------------+----------+----------+---------+
+| ABC          | NULL             | NULL              | Victoria   | London   | On       |    1600 |
+| BBC          | NULL             | NULL              | St. Joseph | London   | On       |    1000 |
+| DDE          | NULL             | NULL              | Victoria   | Victoria | BC       |    1200 |
++--------------+------------------+-------------------+------------+----------+----------+---------+
+3 rows in set (0.00 sec)
+
+--------------
+UPDATE Hospital SET headDocLicenseNum = "GD56" WHERE hospitalCode = "BBC"
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+UPDATE Hospital SET headDocLicenseNum = "YT67" WHERE hospitalCode = "DDE"
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+UPDATE Hospital SET headDocLicenseNum = "SE66" WHERE hospitalCode = "ABC"
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+UPDATE Hospital SET headDocStartDate = "1999-09-10" WHERE headDocLicenseNum = "GD56"
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+UPDATE Hospital SET headDocStartDate = "1997-12-07" WHERE headDocLicenseNum = "YT67"
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+UPDATE Hospital SET headDocStartDate = "1994-12-05" WHERE headDocLicenseNum = "SE66"
+--------------
+
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+--------------
+SELECT * FROM Hospital
+--------------
+
++--------------+------------------+-------------------+------------+----------+----------+---------+
+| hospitalCode | headDocStartDate | headDocLicenseNum | name       | city     | province | numBeds |
++--------------+------------------+-------------------+------------+----------+----------+---------+
+| ABC          | 1994-12-05       | SE66              | Victoria   | London   | On       |    1600 |
+| BBC          | 1999-09-10       | GD56              | St. Joseph | London   | On       |    1000 |
+| DDE          | 1997-12-07       | YT67              | Victoria   | Victoria | BC       |    1200 |
++--------------+------------------+-------------------+------------+----------+----------+---------+
+3 rows in set (0.00 sec)
 
 --------------
 SELECT * FROM Patient
@@ -323,7 +406,7 @@ SELECT * FROM Patient
 | ohipNum   | fName   | lName  |
 +-----------+---------+--------+
 | 110112113 | Bill    | Gellar |
-| 111222111 | Suzi    | Brown  |
+| 111222111 | Suzi    | Bing   |
 | 111222333 | Jon     | Green  |
 | 123456789 | Justin  | Koh    |
 | 333444555 | Colleen | Gellar |
@@ -336,8 +419,8 @@ SELECT * FROM Patient
 UPDATE Patient SET lname = "Brown" WHERE ohipNum = 111222111
 --------------
 
-Query OK, 0 rows affected (0.01 sec)
-Rows matched: 1  Changed: 0  Warnings: 0
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
 
 --------------
 SELECT * FROM Patient
@@ -364,18 +447,26 @@ SELECT * FROM Has
 | ohipNum   | licenseNum |
 +-----------+------------+
 | 110112113 | GD56       |
+| 111222111 | YT67       |
+| 111222333 | JK78       |
 | 111222333 | SE66       |
 | 111222333 | YT67       |
+| 333444555 | GD56       |
 | 444555666 | HT45       |
 | 444555666 | JK78       |
+| 667766777 | GD56       |
+| 667766777 | JK78       |
 | 667766777 | SS32       |
+| 667766777 | YT67       |
 +-----------+------------+
-6 rows in set (0.00 sec)
+12 rows in set (0.00 sec)
 
-ERROR 1062 (23000) at line 45: Duplicate entry 'HT45' for key 'PRIMARY'
 --------------
 UPDATE Has SET licenseNum = "HT45" WHERE licenseNum = "YT67"
 --------------
+
+Query OK, 3 rows affected (0.00 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
 
 --------------
 SELECT * FROM Has
@@ -385,12 +476,18 @@ SELECT * FROM Has
 | ohipNum   | licenseNum |
 +-----------+------------+
 | 110112113 | GD56       |
+| 111222111 | HT45       |
+| 111222333 | HT45       |
+| 111222333 | JK78       |
 | 111222333 | SE66       |
-| 111222333 | YT67       |
+| 333444555 | GD56       |
 | 444555666 | HT45       |
 | 444555666 | JK78       |
+| 667766777 | GD56       |
+| 667766777 | HT45       |
+| 667766777 | JK78       |
 | 667766777 | SS32       |
 +-----------+------------+
-6 rows in set (0.00 sec)
+12 rows in set (0.00 sec)
 
 Bye

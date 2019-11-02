@@ -18,7 +18,7 @@ SHOW DATABASES
 DROP DATABASE IF EXISTS jkoh8assign2db
 --------------
 
-Query OK, 4 rows affected (0.11 sec)
+Query OK, 4 rows affected (0.27 sec)
 
 --------------
 CREATE DATABASE jkoh8assign2db
@@ -63,28 +63,28 @@ SHOW TABLES
 Empty set (0.00 sec)
 
 --------------
-CREATE TABLE Patient (ohipNum CHAR(9), fName VARCHAR(20), lName VARCHAR(20), PRIMARY KEY(ohipNum))
+CREATE TABLE Patient (ohipNum CHAR(9) NOT NULL, fName VARCHAR(20) NOT NULL, lName VARCHAR(20) NOT NULL, PRIMARY KEY(ohipNum))
+--------------
+
+Query OK, 0 rows affected (0.10 sec)
+
+--------------
+CREATE TABLE Hospital (hospitalCode CHAR(3), headDocStartDate DATE, headDocLicenseNum CHAR(4), name VARCHAR(20), city VARCHAR(20), province CHAR(2), numBeds INT, PRIMARY KEY(hospitalCode))
+--------------
+
+Query OK, 0 rows affected (0.06 sec)
+
+--------------
+CREATE TABLE Doctor (licenseNum CHAR(4), hospitalCode CHAR(3), fName VARCHAR(20), lName VARCHAR(20), speciality VARCHAR(30), licenseDate DATE, PRIMARY KEY(licenseNum), FOREIGN KEY(hospitalCode) REFERENCES Hospital(hospitalCode) ON DELETE CASCADE)
 --------------
 
 Query OK, 0 rows affected (0.08 sec)
 
 --------------
-CREATE TABLE Hospital (hospitalCode CHAR(3), headDocLicenseNum CHAR(4), name VARCHAR(20), city VARCHAR(20), province CHAR(2), numBeds INT, PRIMARY KEY(hospitalCode))
+CREATE TABLE Has (ohipNum CHAR(9), licenseNum CHAR(4), PRIMARY KEY(licenseNum, ohipNum),  FOREIGN KEY(ohipNum) REFERENCES Patient(ohipNum), FOREIGN KEY(licenseNum) REFERENCES Doctor(licenseNum))
 --------------
 
 Query OK, 0 rows affected (0.07 sec)
-
---------------
-CREATE TABLE Doctor (licenseNum CHAR(4), hospitalCode CHAR(3), fName VARCHAR(20), lName VARCHAR(20), speciality VARCHAR(30), licenseDate DATE, PRIMARY KEY(licenseNum), FOREIGN KEY(hospitalCode) REFERENCES Hospital(hospitalCode))
---------------
-
-Query OK, 0 rows affected (0.39 sec)
-
---------------
-CREATE TABLE Has (ohipNum CHAR(9), licenseNum CHAR(4), PRIMARY KEY(licenseNum),  FOREIGN KEY(ohipNum) REFERENCES Patient(ohipNum), FOREIGN KEY(licenseNum) REFERENCES Doctor(licenseNum))
---------------
-
-Query OK, 0 rows affected (0.09 sec)
 
 --------------
 SHOW TABLES

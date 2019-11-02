@@ -1,15 +1,23 @@
+-- Part 1
+
+-- Create and use the DB
 SHOW DATABASES;
 DROP DATABASE IF EXISTS jkoh8assign2db;
 CREATE DATABASE jkoh8assign2db;
 USE jkoh8assign2db;
+
+-- Permissions
 GRANT USAGE ON *.* TO 'ta'@'localhost';
 DROP USER 'ta'@'localhost';
 CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319';
 GRANT ALL PRIVILEGES ON jkoh8assign2db.* TO 'ta'@'localhost';
 FLUSH PRIVILEGES;
+
+-- Create the tables
 SHOW TABLES;
-CREATE TABLE Patient (ohipNum CHAR(9), fName VARCHAR(20), lName VARCHAR(20), PRIMARY KEY(ohipNum));
-CREATE TABLE Hospital (hospitalCode CHAR(3), headDocLicenseNum CHAR(4), name VARCHAR(20), city VARCHAR(20), province CHAR(2), numBeds INT, PRIMARY KEY(hospitalCode));
-CREATE TABLE Doctor (licenseNum CHAR(4), hospitalCode CHAR(3), fName VARCHAR(20), lName VARCHAR(20), speciality VARCHAR(30), licenseDate DATE, PRIMARY KEY(licenseNum), FOREIGN KEY(hospitalCode) REFERENCES Hospital(hospitalCode));
-CREATE TABLE Has (ohipNum CHAR(9), licenseNum CHAR(4), PRIMARY KEY(licenseNum),  FOREIGN KEY(ohipNum) REFERENCES Patient(ohipNum), FOREIGN KEY(licenseNum) REFERENCES Doctor(licenseNum));
+CREATE TABLE Patient (ohipNum CHAR(9) NOT NULL, fName VARCHAR(20) NOT NULL, lName VARCHAR(20) NOT NULL, PRIMARY KEY(ohipNum));
+CREATE TABLE Hospital (hospitalCode CHAR(3), headDocStartDate DATE, headDocLicenseNum CHAR(4), name VARCHAR(20), city VARCHAR(20), province CHAR(2), numBeds INT, PRIMARY KEY(hospitalCode));
+CREATE TABLE Doctor (licenseNum CHAR(4), hospitalCode CHAR(3), fName VARCHAR(20), lName VARCHAR(20), speciality VARCHAR(30), licenseDate DATE, PRIMARY KEY(licenseNum), FOREIGN KEY(hospitalCode) REFERENCES Hospital(hospitalCode) ON DELETE CASCADE);
+CREATE TABLE Has (ohipNum CHAR(9), licenseNum CHAR(4), PRIMARY KEY(licenseNum, ohipNum),  FOREIGN KEY(ohipNum) REFERENCES Patient(ohipNum), FOREIGN KEY(licenseNum) REFERENCES Doctor(licenseNum));
 SHOW TABLES;
+

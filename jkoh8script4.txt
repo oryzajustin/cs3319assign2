@@ -1,0 +1,23 @@
+-- Part 4
+
+-- Delete attempt
+DELETE FROM Doctor WHERE licenseDate < "1965-01-01";
+-- Causes an error since we can't delete it until we delete the record out of the other tables where the key is referenced
+
+-- Creating View
+CREATE VIEW patientsanddoctors AS SELECT p.fName AS "Patient first name", p.lName AS "Patient last name", d.fName AS "Doctor first name", d.lName AS "Doctor last name" FROM Doctor d, Has h, Patient p, Hospital o WHERE d.licenseNum = h.licenseNum AND p.ohipNum = h.ohipNum AND h.licenseNum = o.headDocLicenseNum AND o.headDocStartDate > "1995-12-31";
+
+-- Queries
+SELECT * FROM patientsanddoctors;
+SELECT * FROM Doctor;
+SELECT * FROM Has;
+
+-- Delete attempt
+DELETE FROM Doctor WHERE lname = "Clooney";
+SELECT * FROM Doctor;
+SELECT * FROM Has;
+
+-- Delete attempt
+DELETE FROM Doctor WHERE speciality = "Surgeon";
+--  The delete command did not delete the rows because there is a foreign key reference in another table
+
