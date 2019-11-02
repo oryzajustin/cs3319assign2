@@ -1,5 +1,9 @@
 -- Part 4
 
+-- USE DB
+SHOW DATABASES;
+USE jkoh8assign2db;
+
 -- Delete attempt
 DELETE FROM Doctor WHERE licenseDate < "1965-01-01";
 -- Causes an error since we can't delete it until we delete the record out of the other tables where the key is referenced

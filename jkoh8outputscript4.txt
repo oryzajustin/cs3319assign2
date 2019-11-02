@@ -1,13 +1,20 @@
 Warning: Using a password on the command line interface can be insecure.
-ERROR 1046 (3D000) at line 4: No database selected
-ERROR 1046 (3D000) at line 8: No database selected
-ERROR 1046 (3D000) at line 11: No database selected
-ERROR 1046 (3D000) at line 12: No database selected
-ERROR 1046 (3D000) at line 13: No database selected
-ERROR 1046 (3D000) at line 16: No database selected
-ERROR 1046 (3D000) at line 17: No database selected
-ERROR 1046 (3D000) at line 18: No database selected
-ERROR 1046 (3D000) at line 21: No database selected
+--------------
+SHOW DATABASES
+--------------
+
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| jkoh8assign2db     |
+| mysql              |
+| performance_schema |
+| vetoffice          |
++--------------------+
+5 rows in set (0.00 sec)
+
+ERROR 1451 (23000) at line 8: Cannot delete or update a parent row: a foreign key constraint fails (`jkoh8assign2db`.`Has`, CONSTRAINT `Has_ibfk_2` FOREIGN KEY (`licenseNum`) REFERENCES `Doctor` (`licenseNum`))
 --------------
 DELETE FROM Doctor WHERE licenseDate < "1965-01-01"
 --------------
@@ -16,18 +23,60 @@ DELETE FROM Doctor WHERE licenseDate < "1965-01-01"
 CREATE VIEW patientsanddoctors AS SELECT p.fName AS "Patient first name", p.lName AS "Patient last name", d.fName AS "Doctor first name", d.lName AS "Doctor last name" FROM Doctor d, Has h, Patient p, Hospital o WHERE d.licenseNum = h.licenseNum AND p.ohipNum = h.ohipNum AND h.licenseNum = o.headDocLicenseNum AND o.headDocStartDate > "1995-12-31"
 --------------
 
+Query OK, 0 rows affected (0.01 sec)
+
 --------------
 SELECT * FROM patientsanddoctors
 --------------
+
++--------------------+-------------------+-------------------+------------------+
+| Patient first name | Patient last name | Doctor first name | Doctor last name |
++--------------------+-------------------+-------------------+------------------+
+| Bill               | Gellar            | Joey              | Shabado          |
+| Colleen            | Gellar            | Joey              | Shabado          |
+| Scotty             | Bing              | Joey              | Shabado          |
++--------------------+-------------------+-------------------+------------------+
+3 rows in set (0.00 sec)
 
 --------------
 SELECT * FROM Doctor
 --------------
 
++------------+--------------+---------+----------+--------------+-------------+
+| licenseNum | hospitalCode | fName   | lName    | speciality   | licenseDate |
++------------+--------------+---------+----------+--------------+-------------+
+| GD56       | BBC          | Joey    | Shabado  | Podiatrist   | 1960-06-24  |
+| HT45       | DDE          | Ross    | Clooney  | Surgeon      | 1987-06-20  |
+| JK78       | BBC          | Mandy   | Webster  | Surgeon      | 1990-08-08  |
+| SE66       | ABC          | Colleen | Aziz     | Surgeon      | 1989-08-24  |
+| SS32       | ABC          | Derek   | Shepherd | Neurosurgeon | 2005-03-27  |
+| YT67       | DDE          | Ben     | Spock    | Pediatrician | 1955-02-20  |
++------------+--------------+---------+----------+--------------+-------------+
+6 rows in set (0.00 sec)
+
 --------------
 SELECT * FROM Has
 --------------
 
++-----------+------------+
+| ohipNum   | licenseNum |
++-----------+------------+
+| 110112113 | GD56       |
+| 111222111 | HT45       |
+| 111222333 | HT45       |
+| 111222333 | JK78       |
+| 111222333 | SE66       |
+| 333444555 | GD56       |
+| 444555666 | HT45       |
+| 444555666 | JK78       |
+| 667766777 | GD56       |
+| 667766777 | HT45       |
+| 667766777 | JK78       |
+| 667766777 | SS32       |
++-----------+------------+
+12 rows in set (0.00 sec)
+
+ERROR 1451 (23000) at line 20: Cannot delete or update a parent row: a foreign key constraint fails (`jkoh8assign2db`.`Has`, CONSTRAINT `Has_ibfk_2` FOREIGN KEY (`licenseNum`) REFERENCES `Doctor` (`licenseNum`))
 --------------
 DELETE FROM Doctor WHERE lname = "Clooney"
 --------------
@@ -36,10 +85,41 @@ DELETE FROM Doctor WHERE lname = "Clooney"
 SELECT * FROM Doctor
 --------------
 
++------------+--------------+---------+----------+--------------+-------------+
+| licenseNum | hospitalCode | fName   | lName    | speciality   | licenseDate |
++------------+--------------+---------+----------+--------------+-------------+
+| GD56       | BBC          | Joey    | Shabado  | Podiatrist   | 1960-06-24  |
+| HT45       | DDE          | Ross    | Clooney  | Surgeon      | 1987-06-20  |
+| JK78       | BBC          | Mandy   | Webster  | Surgeon      | 1990-08-08  |
+| SE66       | ABC          | Colleen | Aziz     | Surgeon      | 1989-08-24  |
+| SS32       | ABC          | Derek   | Shepherd | Neurosurgeon | 2005-03-27  |
+| YT67       | DDE          | Ben     | Spock    | Pediatrician | 1955-02-20  |
++------------+--------------+---------+----------+--------------+-------------+
+6 rows in set (0.00 sec)
+
 --------------
 SELECT * FROM Has
 --------------
 
++-----------+------------+
+| ohipNum   | licenseNum |
++-----------+------------+
+| 110112113 | GD56       |
+| 111222111 | HT45       |
+| 111222333 | HT45       |
+| 111222333 | JK78       |
+| 111222333 | SE66       |
+| 333444555 | GD56       |
+| 444555666 | HT45       |
+| 444555666 | JK78       |
+| 667766777 | GD56       |
+| 667766777 | HT45       |
+| 667766777 | JK78       |
+| 667766777 | SS32       |
++-----------+------------+
+12 rows in set (0.00 sec)
+
+ERROR 1451 (23000) at line 25: Cannot delete or update a parent row: a foreign key constraint fails (`jkoh8assign2db`.`Has`, CONSTRAINT `Has_ibfk_2` FOREIGN KEY (`licenseNum`) REFERENCES `Doctor` (`licenseNum`))
 --------------
 DELETE FROM Doctor WHERE speciality = "Surgeon"
 --------------
