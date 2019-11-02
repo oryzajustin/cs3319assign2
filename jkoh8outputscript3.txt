@@ -1,140 +1,72 @@
 Warning: Using a password on the command line interface can be insecure.
---------------
-SHOW DATABASES
---------------
-
-+--------------------+
-| Database           |
-+--------------------+
-| information_schema |
-| jkoh8assign2db     |
-| mysql              |
-| performance_schema |
-| vetoffice          |
-+--------------------+
-5 rows in set (0.00 sec)
-
+ERROR 1046 (3D000) at line 4: No database selected
+ERROR 1046 (3D000) at line 6: No database selected
+ERROR 1046 (3D000) at line 8: No database selected
+ERROR 1046 (3D000) at line 10: No database selected
+ERROR 1046 (3D000) at line 12: No database selected
+ERROR 1046 (3D000) at line 14: No database selected
+ERROR 1046 (3D000) at line 16: No database selected
+ERROR 1046 (3D000) at line 18: No database selected
+ERROR 1046 (3D000) at line 20: No database selected
+ERROR 1046 (3D000) at line 22: No database selected
+ERROR 1046 (3D000) at line 24: No database selected
+ERROR 1046 (3D000) at line 26: No database selected
+ERROR 1046 (3D000) at line 28: No database selected
+ERROR 1064 (42000) at line 28: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'x' at line 1
 --------------
 SELECT lname FROM Patient
 --------------
-
-+--------+
-| lname  |
-+--------+
-| Gellar |
-| Brown  |
-| Green  |
-| Koh    |
-| Gellar |
-| Gellar |
-| Bing   |
-+--------+
-7 rows in set (0.00 sec)
 
 --------------
 SELECT DISTINCT lname FROM Patient
 --------------
 
-+--------+
-| lname  |
-+--------+
-| Gellar |
-| Brown  |
-| Green  |
-| Koh    |
-| Bing   |
-+--------+
-5 rows in set (0.00 sec)
-
 --------------
 SELECT * FROM Doctor ORDER BY lname ASC
 --------------
-
-+------------+--------------+---------+----------+--------------+-------------+
-| licenseNum | hospitalCode | fName   | lName    | speciality   | licenseDate |
-+------------+--------------+---------+----------+--------------+-------------+
-| SE66       | ABC          | Colleen | Aziz     | Surgeon      | 1989-08-24  |
-| HT45       | DDE          | Ross    | Clooney  | Surgeon      | 1987-06-20  |
-| GD56       | BBC          | Joey    | Shabado  | Podiatrist   | 1960-06-24  |
-| SS32       | ABC          | Derek   | Shepherd | Neurosurgeon | 2005-03-27  |
-| YT67       | DDE          | Ben     | Spock    | Pediatrician | 1955-02-20  |
-| JK78       | BBC          | Mandy   | Webster  | Surgeon      | 1990-08-08  |
-+------------+--------------+---------+----------+--------------+-------------+
-6 rows in set (0.00 sec)
 
 --------------
 SELECT * FROM Hospital WHERE numBeds > 1500
 --------------
 
-+--------------+------------------+-------------------+----------+--------+----------+---------+
-| hospitalCode | headDocStartDate | headDocLicenseNum | name     | city   | province | numBeds |
-+--------------+------------------+-------------------+----------+--------+----------+---------+
-| ABC          | 1994-12-05       | SE66              | Victoria | London | On       |    1600 |
-+--------------+------------------+-------------------+----------+--------+----------+---------+
-1 row in set (0.00 sec)
-
 --------------
 SELECT lname, fname FROM Doctor WHERE hospitalCode = (SELECT hospitalCode FROM Hospital WHERE name = 'St. Joseph')
 --------------
-
-+---------+-------+
-| lname   | fname |
-+---------+-------+
-| Shabado | Joey  |
-| Webster | Mandy |
-+---------+-------+
-2 rows in set (0.00 sec)
 
 --------------
 SELECT fname, lname FROM Patient WHERE lname LIKE "G%"
 --------------
 
-+---------+--------+
-| fname   | lname  |
-+---------+--------+
-| Bill    | Gellar |
-| Jon     | Green  |
-| Colleen | Gellar |
-| Sean    | Gellar |
-+---------+--------+
-4 rows in set (0.00 sec)
+--------------
+SELECT p.fname, p.lname FROM Patient p, Doctor d, Has h WHERE d.lname = "Clooney" AND h.ohipNum = p.ohipNum AND d.licenseNum = h.licenseNum
+--------------
+
+--------------
+SELECT name, city, d.lname FROM Hospital o, Doctor d WHERE o.headDocLicenseNum = d.licenseNum
+--------------
 
 --------------
 SELECT SUM(numBeds) AS "Total Number of Beds" FROM Hospital
 --------------
 
-+----------------------+
-| Total Number of Beds |
-+----------------------+
-|                 3800 |
-+----------------------+
-1 row in set (0.00 sec)
-
 --------------
 SELECT p.fName AS "Patient fname", d.fName AS "Doctor fname" FROM Doctor d, Has h, Patient p, Hospital o WHERE d.licenseNum = h.licenseNum AND p.ohipNum = h.ohipNum AND h.licenseNum = o.headDocLicenseNum
 --------------
 
-+---------------+--------------+
-| Patient fname | Doctor fname |
-+---------------+--------------+
-| Jon           | Colleen      |
-| Bill          | Joey         |
-| Colleen       | Joey         |
-| Scotty        | Joey         |
-+---------------+--------------+
-4 rows in set (0.00 sec)
+--------------
+SELECT DISTINCT d.fName, d.lName FROM Hospital h, Doctor d WHERE d.hospitalCode IN (SELECT hospitalCode FROM Hospital WHERE name = "Victoria" AND speciality = "Surgeon")
+--------------
+
+--------------
+SELECT DISTINCT fName FROM Doctor d WHERE d.licenseNum NOT IN (SELECT licenseNum FROM Has WHERE Has.licenseNum = d.licenseNum)
+--------------
 
 --------------
 SELECT fName, lName FROM Doctor WHERE licenseNum IN (SELECT licenseNum FROM Has GROUP BY licenseNum HAVING COUNT(ohipNum) > 1)
 --------------
 
-+-------+---------+
-| fName | lName   |
-+-------+---------+
-| Joey  | Shabado |
-| Ross  | Clooney |
-| Mandy | Webster |
-+-------+---------+
-3 rows in set (0.00 sec)
+--------------
+x
+--------------
 
 Bye
