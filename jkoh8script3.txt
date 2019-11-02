@@ -1,5 +1,9 @@
 -- Part 3
 
+-- USE DB
+SHOW DATABASES;
+USE jkoh8assign2db;
+
 -- Query 1
 SELECT lname FROM Patient;
 -- Query 2
@@ -25,5 +29,4 @@ SELECT DISTINCT d.fName, d.lName FROM Hospital h, Doctor d WHERE d.hospitalCode 
 -- Query 12
 SELECT DISTINCT fName FROM Doctor d WHERE d.licenseNum NOT IN (SELECT licenseNum FROM Has WHERE Has.licenseNum = d.licenseNum);
 -- Query 13
-SELECT fName, lName FROM Doctor WHERE licenseNum IN (SELECT licenseNum FROM Has GROUP BY licenseNum HAVING COUNT(ohipNum) > 1);x
-
+SELECT fName, lName FROM Doctor WHERE licenseNum IN (SELECT licenseNum FROM Has GROUP BY licenseNum HAVING COUNT(ohipNum) > 1);
